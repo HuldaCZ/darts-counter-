@@ -27,13 +27,21 @@ export default function Setup() {
     ]);
   };
 
+  // Colours track throw position, so they are reassigned whenever order changes.
+  const reindex = (ps: Player[]) => ps.map((p, i) => ({ ...p, color: colorForIndex(i) }));
+
   const removePlayer = (id: string) => {
-    setPlayers((ps) =>
-      (ps.length <= 1 ? ps : ps.filter((p) => p.id !== id)).map((p, i) => ({
-        ...p,
-        color: colorForIndex(i),
-      })),
-    );
+    setPlayers((ps) => (ps.length <= 1 ? ps : reindex(ps.filter((p) => p.id !== id))));
+  };
+
+  const movePlayer = (index: number, dir: -1 | 1) => {
+    setPlayers((ps) => {
+      const target = index + dir;
+      if (target < 0 || target >= ps.length) return ps;
+      const next = [...ps];
+      [next[index], next[target]] = [next[target], next[index]];
+      return reindex(next);
+    });
   };
 
   const rename = (id: string, name: string) =>
@@ -121,17 +129,37 @@ export default function Setup() {
         )}
 
         <div>
-          <div className="section-title">Players ({players.length})</div>
+          <div className="section-title">Throw order ({players.length} players)</div>
           <div className="players">
             {players.map((p, i) => (
               <div className="players__item" key={p.id}>
-                <span className="dot" style={{ background: p.color }} />
+                <span className="players__pos" style={{ background: p.color }}>
+                  {i + 1}
+                </span>
                 <input
                   value={p.name}
                   maxLength={16}
                   onChange={(e) => rename(p.id, e.target.value)}
                   placeholder={`Player ${i + 1}`}
                 />
+                <span className="players__move">
+                  <button
+                    className="players__arrow"
+                    onClick={() => movePlayer(i, -1)}
+                    disabled={i === 0}
+                    aria-label={`Move ${p.name || `Player ${i + 1}`} up`}
+                  >
+                    ▲
+                  </button>
+                  <button
+                    className="players__arrow"
+                    onClick={() => movePlayer(i, 1)}
+                    disabled={i === players.length - 1}
+                    aria-label={`Move ${p.name || `Player ${i + 1}`} down`}
+                  >
+                    ▼
+                  </button>
+                </span>
                 <button
                   className="btn btn--icon btn--ghost btn--danger"
                   onClick={() => removePlayer(p.id)}

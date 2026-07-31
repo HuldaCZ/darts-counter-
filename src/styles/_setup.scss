@@ -115,11 +115,16 @@
     gap: 10px;
     padding: 8px 10px 8px 12px;
 
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+    .players__pos {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
       flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-ink);
     }
 
     input {
@@ -134,6 +139,38 @@
       &:focus {
         outline: none;
       }
+    }
+  }
+
+  &__move {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  &__arrow {
+    @include tap;
+    width: 34px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    line-height: 1;
+    border-radius: 6px;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    transition: color 0.12s ease, background 0.12s ease;
+
+    &:active:not(:disabled) {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      pointer-events: none;
     }
   }
 }
