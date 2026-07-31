@@ -1,0 +1,32 @@
+// Design tokens. Sass vars for build-time (breakpoints) + CSS custom
+// properties for runtime theming.
+
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+
+:root {
+  --bg: #0f1216;
+  --bg-elev: #171d25;
+  --surface: #1d2530;
+  --surface-2: #263041;
+  --border: #2c3542;
+  --text: #e8edf2;
+  --muted: #8a95a5;
+  --muted-2: #5f6b7a;
+
+  --accent: #38e07b;
+  --accent-ink: #06210f;
+  --secondary: #f5a623;
+  --danger: #ff5470;
+  --info: #4aa8ff;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 22px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.25);
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

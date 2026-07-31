@@ -1,0 +1,253 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+  padding-bottom: 4px;
+}
+
+.pcard {
+  @include card;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &--active {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  }
+
+  &--winner {
+    border-color: var(--secondary);
+    background: color-mix(in srgb, var(--secondary) 14%, var(--surface));
+  }
+
+  &__bar {
+    width: 4px;
+    align-self: stretch;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    .crown {
+      color: var(--secondary);
+    }
+  }
+
+  &__sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  &__score {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__hint {
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+}
+
+// Cricket marks --------------------------------------------------------------
+.cricket {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow-x: auto;
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 26px;
+
+    .num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .mk {
+      font-size: 16px;
+      font-weight: 800;
+      height: 20px;
+    }
+    .mk--closed {
+      color: var(--accent);
+    }
+  }
+}
+
+// ATC progress ---------------------------------------------------------------
+.atc {
+  flex: 1;
+  &__target {
+    font-size: 28px;
+    font-weight: 800;
+  }
+  &__bar {
+    margin-top: 6px;
+    height: 6px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    overflow: hidden;
+    span {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+  }
+}
+
+// Current turn strip ---------------------------------------------------------
+.turn {
+  @include card;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+
+  &__darts {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  &__slot {
+    flex: 1;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-elev);
+    border: 1px dashed var(--border);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    color: var(--muted-2);
+
+    &--filled {
+      border-style: solid;
+      border-color: transparent;
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    &--bust {
+      background: color-mix(in srgb, var(--danger) 20%, var(--surface));
+      color: var(--danger);
+    }
+  }
+
+  &__total {
+    text-align: right;
+    min-width: 54px;
+    .k {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .v {
+      font-size: 20px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(320px + var(--safe-bottom));
+  transform: translateX(-50%);
+  background: var(--danger);
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  z-index: 20;
+  animation: toast-in 0.2s ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+// Winner overlay -------------------------------------------------------------
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 9, 12, 0.72);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 30;
+
+  &__card {
+    @include card;
+    text-align: center;
+    padding: 28px 22px;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--bg-elev);
+
+    .trophy {
+      font-size: 56px;
+    }
+    .who {
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .sub {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  &__hero {
+    margin-top: 8vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 30px;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 30% 25%, #2b3644, #12171f);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    font-size: 52px;
+  }
+
+  &__title {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  &__tagline {
+    color: var(--muted);
+    max-width: 30ch;
+  }
+
+  &__actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__resume {
+    @include card;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+
+    .label {
+      flex: 1;
+      .k {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .v {
+        font-weight: 700;
+      }
+    }
+  }
+}

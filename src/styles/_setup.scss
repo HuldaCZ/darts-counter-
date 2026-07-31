@@ -1,0 +1,150 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.setup {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 90px;
+
+  &__modes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    @include sm {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.mode-card {
+  @include tap;
+  @include card;
+  text-align: left;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.06s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &__name {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  &__tag {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  &--active {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  }
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+
+  &__label {
+    .t {
+      font-weight: 600;
+    }
+    .d {
+      font-size: 13px;
+      color: var(--muted);
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  &--on {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    border-color: transparent;
+    &::after {
+      transform: translateX(22px);
+      background: var(--accent);
+    }
+  }
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__item {
+    @include card;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 8px 12px;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 8px 0;
+      min-width: 0;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.setup__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px calc(12px + var(--safe-bottom));
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+  max-width: 640px;
+  margin: 0 auto;
+}

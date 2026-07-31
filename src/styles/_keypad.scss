@@ -1,0 +1,91 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.keypad {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+
+  &__mult {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+
+  &__extra {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+}
+
+.multbtn {
+  @include tap;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--muted);
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+
+  &--active {
+    color: var(--accent-ink);
+    background: var(--accent);
+  }
+  &--x2.multbtn--active {
+    background: var(--info);
+    color: #04203f;
+  }
+  &--x3.multbtn--active {
+    background: var(--secondary);
+    color: #2c1c00;
+  }
+}
+
+.key {
+  @include tap;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.05s ease, background 0.12s ease;
+
+  &:active {
+    transform: scale(0.94);
+    background: var(--surface-2);
+  }
+
+  &--wide {
+    aspect-ratio: auto;
+    padding: 14px 0;
+    font-size: 16px;
+  }
+
+  &--miss {
+    color: var(--muted);
+  }
+  &--bull {
+    color: var(--danger);
+  }
+  &--undo {
+    color: var(--secondary);
+  }
+}
